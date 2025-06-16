@@ -1,0 +1,12 @@
+/Users/manudepakreddy/Desktop/Fldrs/Git/Prediction-of-Solar-Power-Energy-Generation/src/data_generation.py:28: FutureWarning: DataFrame.interpolate with object dtype is deprecated and will raise in a future version. Call obj.infer_objects(copy=False) before interpolating instead.
+  data.interpolate(method='values',order = 2,inplace=True, limit_direction='both')
+Traceback (most recent call last):
+  File "/Users/manudepakreddy/Desktop/Fldrs/Git/Prediction-of-Solar-Power-Energy-Generation/main.py", line 39, in <module>
+    run_model(data_name=DATA_FILE_NAME, 
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manudepakreddy/Desktop/Fldrs/Git/Prediction-of-Solar-Power-Energy-Generation/src/experience.py", line 55, in run_model
+    cp_callback = tf.keras.callbacks.ModelCheckpoint(filepath=checkpoint_path, save_weights_only=True, verbose=1, monitor='val_loss', save_best_only='True')
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/manudepakreddy/miniconda3/lib/python3.12/site-packages/keras/src/callbacks/model_checkpoint.py", line 184, in __init__
+    raise ValueError(
+ValueError: When using `save_weights_only=True` in `ModelCheckpoint`, the filepath provided must end in `.weights.h5` (Keras weights format). Received: filepath=training/cp.ckpt

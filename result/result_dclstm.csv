@@ -1,0 +1,1 @@
+MODEL;MODEL_DESCRIPTION;FORECAST_HORIZON;PAST_HISTORY;BATCH_SIZE;EPOCHS;mse;rmse;nrmse;mae;wape;val_mse;val_rmse;val_nrmse;val_mae;val_wape;loss;val_loss

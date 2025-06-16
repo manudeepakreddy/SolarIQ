@@ -1,0 +1,102 @@
+
+Column	Meaning
+MODEL	Unique model name (e.g., lstm_Model_0)
+MODEL_DESCRIPTION	Format: [(input shape), forecast horizon, dilation?, filters, dropout]
+FORECAST_HORIZON	Number of future hours predicted (always 24 here)
+PAST_HISTORY	Number of past time steps used (168 = 1 week)
+BATCH_SIZE	Samples processed per training step (256)
+EPOCHS	Training cycles (each full pass over data)
+mse, rmse	Mean Squared Error, Root Mean Squared Error on test data
+nrmse	Normalized RMSE (helps compare across scales)
+mae	Mean Absolute Error (average size of error)
+wape	Weighted Absolute Percentage Error (scaled error)
+val_*	Validation metrics (on unseen validation set)
+loss, val_loss	Per-epoch loss values (training & validation)
+
+
+
+Metric	Ideal Trend
+rmse, mae	Lower is better
+nrmse	Should be <10%
+wape	Closer to 0 is better
+val_*	Should be close to train values, or model is overfitting
+
+
+
+ Why LSTM?
+LSTM (Long Short-Term Memory):
+Purpose: Captures long-term dependencies in sequential data (e.g., time-series).
+
+Why it’s useful for solar prediction:
+
+Weather patterns and solar output have temporal memory — e.g., cloud patterns affect the next few hours.
+
+LSTM learns how earlier events influence later ones.
+
+Strength: Good at modeling delayed effects and temporal trends over days.
+
+Example:
+If solar irradiance drops every day at 6 PM, LSTM learns this long-term sequence.
+
+⚡ Why DCCNN?
+DCCNN (Deep Causal Convolutional Neural Network):
+Purpose: Detects local patterns and variations over time (like trends or spikes).
+
+“Causal” means the model doesn't use future information — it predicts based only on past.
+
+Why it’s useful for solar prediction:
+
+Quickly identifies short-term fluctuations like passing clouds, sudden weather shifts.
+
+Efficient and faster to train than LSTM.
+
+ Example:
+If irradiance drops suddenly due to cloud cover, CNN detects it immediately in a few timesteps.
+
+
+
+Model	Limitations
+Random Forest / XGBoost	Can't model sequential memory; treats time steps as features
+Vanilla LSTM	Misses local trends and fine-grained fluctuations
+GRU	Slightly faster, but less expressive than LSTM for longer sequences
+CNN Only	Misses long-term dependencies; great for short-term only
+Transformer	Very powerful, but needs a huge dataset + compute power to outperform DCCNN+LSTM
+Linear/ARIMA	Too simple; can't capture non-linear solar patterns or weather influence
+
+Use Case	Benefit
+Trend Analysis	Optimize operations and identify issues
+Storage/Grid Optimization	Efficient energy usage and profit
+Financial Forecasting	Revenue projection and planning
+Model Tuning	Improve forecasting accuracy
+Dashboarding & Alerts	Real-time insights and control
+Stakeholder Reporting	Build trust and support investments
+
+
+| Parameter                           | Description                                                          |
+| ----------------------------------- | -------------------------------------------------------------------- |
+| **Predicted Energy Output**         | From your model (in kWh) for each hour/day. You already have this. |
+| **Tariff / Revenue per kWh**        | e.g., €0.20/kWh — based on local energy buyback prices.              |
+| **Installation Cost**               | One-time investment for solar panel setup.                           |
+| **Operational & Maintenance Costs** | Ongoing annual costs (optional for simple ROI).                      |
+| **Time Period**                     | ROI over 1 year, 5 years, etc.                                       |
+| **Discount Rate** (optional)        | For Net Present Value (NPV) style ROI.                               |
+
+
+UK Solar Export Tariff Rates (2015–2020)
+Year	Scheme	Export Tariff Rate (p/kWh)	Notes
+2015	Feed-in Tariff (FiT)	4.85	Fixed rate for eligible installations.
+2016	Feed-in Tariff (FiT)	4.85	Rate remained unchanged from 2015.
+2017	Feed-in Tariff (FiT)	5.03	Slight increase due to Retail Price Index (RPI) adjustment.
+2018	Feed-in Tariff (FiT)	5.24	Increased rate reflecting RPI adjustment.
+2019	Feed-in Tariff (FiT)	5.24	FiT scheme closed to new applicants on 31 March 2019.
+2020	Smart Export Guarantee (SEG)	Variable (1.0 – 5.5)	Rates varied by supplier; SEG replaced FiT for new installations.
+
+
+
+Use Case	Benefit
+Trend Analysis	Optimize operations and identify issues
+Storage/Grid Optimization	Efficient energy usage and profit
+Financial Forecasting	Revenue projection and planning
+Model Tuning	Improve forecasting accuracy
+Dashboarding & Alerts	Real-time insights and control
+Stakeholder Reporting	Build trust and support investments
